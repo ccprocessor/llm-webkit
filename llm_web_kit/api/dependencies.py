@@ -36,6 +36,11 @@ class Settings(BaseSettings):
     # 缓存配置
     cache_ttl: int = 3600  # 1小时
 
+    # 数据库配置
+    database_url: Optional[str] = None  # 从环境变量 DATABASE_URL 读取
+    db_pool_size: int = 5
+    db_max_overflow: int = 10
+
     # pydantic v2 配置写法
     model_config = SettingsConfigDict(
         env_file=".env",

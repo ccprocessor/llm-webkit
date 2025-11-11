@@ -5,8 +5,7 @@ from overrides import override
 
 from llm_web_kit.exception.exception import (
     HtmlMathMathjaxRenderRecognizerException, HtmlMathRecognizerException)
-from llm_web_kit.extractor.html.recognizer.cc_math import (tag_common_modify,
-                                                           tag_img, tag_math,
+from llm_web_kit.extractor.html.recognizer.cc_math import (tag_img, tag_math,
                                                            tag_mjx, tag_script)
 from llm_web_kit.extractor.html.recognizer.cc_math.common import (CCMATH, CSDN,
                                                                   ZHIHU)
@@ -139,15 +138,16 @@ class MathRecognizer(BaseHTMLElementRecognizer):
                 if ZHIHU.DOMAIN in self.cm.url and node.tag == 'span' and node.get('class') == ZHIHU.MATH:
                     tag_script.process_zhihu_custom_tag(self.cm, math_render_type, node)
 
+                # 提示：被mathjax兜底覆盖，逻辑已经删除
                 # tag = span， class 为 math-containerm， 或者 mathjax 或者 wp-katex-eq
-                if node.tag == 'span' and node.get('class') and (
-                        'math-container' in node.get('class') or
-                        'mathjax' in node.get('class') or
-                        'wp-katex-eq' in node.get('class') or
-                        'x-ck12-mathEditor' in node.get('class') or
-                        'tex' in node.get('class')
-                ):
-                    tag_common_modify.modify_tree(self.cm, math_render_type, original_html, node, parent)
+                # if node.tag == 'span' and node.get('class') and (
+                #         'math-container' in node.get('class') or
+                #         'mathjax' in node.get('class') or
+                #         'wp-katex-eq' in node.get('class') or
+                #         'x-ck12-mathEditor' in node.get('class') or
+                #         'tex' in node.get('class')
+                # ):
+                #     tag_common_modify.modify_tree(self.cm, math_render_type, original_html, node, parent)
 
                 # math tags
                 if node.tag == 'math' or node.tag.endswith(':math'):

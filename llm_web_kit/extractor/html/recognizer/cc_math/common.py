@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import List, Tuple
 
 from lxml import etree
-from lxml.html import HtmlElement
 
 # 在导入前就设置严格的日志控制
 logging.basicConfig(level=logging.WARNING, force=True)
@@ -20,7 +19,6 @@ from py_asciimath.translator.translator import ASCIIMath2Tex
 from llm_web_kit.extractor.html.recognizer.recognizer import CCTag
 from llm_web_kit.libs.doc_element_type import DocElementType
 from llm_web_kit.libs.html_utils import (build_cc_element, element_to_html,
-                                         element_to_html_unescaped,
                                          html_to_element)
 from llm_web_kit.libs.text_utils import normalize_ctl_text
 
@@ -537,63 +535,6 @@ class CCMATH():
             parent.insert(left_paren, new_msup)
             parent.remove(msup)
         return etree.tostring(root, encoding='unicode', pretty_print=True)
-
-    def replace_math(self, new_tag: str, math_type: str, math_render: str, node: HtmlElement, func, asciimath_wrap: bool = False) -> HtmlElement:
-        # pattern re数学公式匹配 func 公式预处理 默认不处理
-        # ascii公式处理逻辑转移到mathjax渲染器方案中
-        if asciimath_wrap:
-            return node
-
-        pattern_type = MATH_TYPE_PATTERN.DISPLAYMATH if new_tag == CCMATH_INTERLINE else MATH_TYPE_PATTERN.INLINEMATH
-        original_text = node.text or ''
-
-        def is_ccmath_wrapped(match_text, original_text: str) -> bool:
-            if not match_text or not original_text:
-                return False
-            start_idx = match_text.start()
-            end_idx = match_text.end()
-            before_match = original_text[:start_idx].strip()
-            after_match = original_text[end_idx:].strip()
-            if 'ccmath' in before_match and 'ccmath' in after_match:
-                return True
-            if pattern_type == MATH_TYPE_PATTERN.DISPLAYMATH:
-                for start, end in MATH_TYPE_TO_DISPLAY[MathType.LATEX][MATH_TYPE_PATTERN.INLINEMATH]:
-                    if start in before_match and end in after_match:
-                        return True
-            return False
-
-        def process(match_text):
-            try:
-                match = match_text.group(0)
-                if is_ccmath_wrapped(match_text, original_text):
-                    return match
-                wrapped_text = func(match) if func else match
-                # html保留原始的，而不是传入修改过的wrapped_text
-                original_wrapped = wrapped_text
-                wrapped_text = self.wrap_math_md(wrapped_text)
-                if not wrapped_text:
-                    return match
-                new_span = build_cc_element(
-                    html_tag_name=new_tag,
-                    text=wrapped_text,
-                    tail='',
-                    type=math_type,
-                    by=math_render,
-                    html=original_wrapped
-                )
-            except Exception:
-                return match
-            return element_to_html(new_span)
-        try:
-            for start, end in MATH_TYPE_TO_DISPLAY[math_type][pattern_type]:
-                pattern = f'{re.escape(start)}.*?{re.escape(end)}'.replace(r'\.\*\?', '.*?')
-                regex = re.compile(pattern, re.DOTALL)
-                original_text = re.sub(regex, process, original_text)
-        except Exception:
-            node.text = self.build_cc_exception_tag(original_text, math_type, math_render)
-            return node
-        node.text = original_text
-        return html_to_element(element_to_html_unescaped(node))
 
     def build_cc_exception_tag(self, text, math_type, math_render) -> str:
         return element_to_html(build_cc_element(

@@ -472,6 +472,24 @@ class MyTestCase(unittest.TestCase):
         self.assertIsNotNone(p_element.get("_item_id"))
         self.assertIsNotNone(p_element.get("cc-select"))
 
+    def test_tag_simplifier_unusual_encoding(self):
+        file_path = base_dir / 'assets/test_html_data/simplify_cases/unusual_encoding.html'
+        with open(file_path, 'r') as file:
+            raw_html = file.read()
+
+        data_dict = {PreDataJsonKey.TYPICAL_RAW_HTML: raw_html}
+        pre_data = PreDataJson(data_dict)
+
+        pre_data_result = HtmlTagSimplifierParser({}).parse(pre_data)
+
+        simplifier_raw_html = pre_data_result.get(PreDataJsonKey.TYPICAL_SIMPLIFIED_HTML, '')
+        simple_id_count = self.check_and_find_max_item_id(simplifier_raw_html)
+        self.assertEqual(simple_id_count, 102)
+
+        raw_tag_html = pre_data_result.get(PreDataJsonKey.TYPICAL_RAW_TAG_HTML, '')
+        tag_id_count = self.check_and_find_max_item_id(raw_tag_html)
+        self.assertEqual(tag_id_count, simple_id_count)
+
 
 if __name__ == '__main__':
     unittest.main()

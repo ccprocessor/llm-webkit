@@ -3,6 +3,7 @@ import re
 import uuid
 from typing import Dict, List, Tuple
 
+from bs4 import BeautifulSoup
 from lxml import etree, html
 from selectolax.parser import HTMLParser
 
@@ -858,8 +859,12 @@ def simplify_html(html_str) -> etree.Element:
        _xpath_mapping: xpath映射
    """
     # 使用selectolax的HTMLParser来修复html
-    soup = HTMLParser(html_str)
-    fixed_html = soup.html
+    try:
+        soup = HTMLParser(html_str)
+        fixed_html = soup.html
+    except Exception:
+        soup = BeautifulSoup(html_str, 'html.parser')
+        fixed_html = str(soup)
 
     preprocessed_html = remove_xml_declaration(fixed_html)
     # 注释通过lxml的HTMLParser的remove_comments参数处理

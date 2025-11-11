@@ -168,7 +168,7 @@
         "content": {
           "math_content": "a^2 + b^2 = c^2",
           "math_type": "latex",
-          "by": "None"
+          "by": "mathjax_mock"
         }
       },
       {

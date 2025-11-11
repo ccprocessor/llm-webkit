@@ -53,6 +53,7 @@ class HTMLParseResponse(BaseResponse):
 
     data: Optional[HTMLParseData] = Field(None, description="解析结果数据")
     metadata: Optional[Dict[str, Any]] = Field(None, description="元数据信息")
+    request_id: Optional[str] = Field(None, description="请求ID")
 
     model_config = ConfigDict(
         json_schema_extra={
