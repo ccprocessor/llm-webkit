@@ -43,10 +43,10 @@
       //这里是第二页的内容，如果没有内容则必须留空（例如某一页PDF是空白)
   ],
 ] //结构结束
+```
 
 使用数组而非类似`page_index=1` 的方式组织是为了能够快速索引到某一页的数据。
 对于网页大多数情况下只有一页。
-```
 
 <b>支持的文档元素类型</b>
 
@@ -115,8 +115,8 @@
   "type":"algorithm",
   "bbox": [x1, y1, x2, y2],
   "content":{
-    "algorithm_content":"",
-    "caption":["title-1", "title-2",]
+    "algorithm_content":"循环:\n当x<0时停止",
+    "caption":["title-1", "title-2"]
   }
 }
 
@@ -236,6 +236,7 @@
 ```json
 {
   "type": "complex_table",
+  "bbox": [x1, y1, x2, y2],
   "content": {
     "html": "<table><tbody><tr><th rowspan=\"2\">指标</th><th colspan=\"2\">数据</th></tr><tr><td>2023</td><td>2024</td></tr><tr><td>营收</td><td>10</td><td>15</td></tr></tbody></table>",
     "table_nest_level": "1",
@@ -341,7 +342,7 @@
 ```json
 {
   "type":"ref_list",
-  "bbox":[],
+  "bbox": [x1, y1, x2, y2],
   "content":{
     // same as list
   }
@@ -354,7 +355,7 @@
 ```json
 {
   "type": "title",
-  "bbox":[],
+  "bbox": [x1, y1, x2, y2],
   "content": {
     "title_content": "大模型好，大模型棒1",
     "level": "1"
@@ -374,7 +375,7 @@
 ```json
 {
   "type": "paragraph",
-  "bbox":[],
+  "bbox": [x1, y1, x2, y2],
   "content": [
     {
       "c": "Who Is In Your Top 3 Mentalists Of All Time? x = 1",
