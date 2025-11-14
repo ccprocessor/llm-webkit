@@ -402,7 +402,7 @@
 <b>content字段说明</b>
 
 - content是一个数组，每个元素是一个对象，包含字段：`c`和`t`。 c是内容，t是类型。
-- t的取值有一下几种：
+- `t`的取值有以下几种：
   - `text` : 普通文本
   - `equation-inline`： 行内公式
   - `md`：markdown格式的文本，通常用于格式化从网上下来的mardown文档
