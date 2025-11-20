@@ -282,8 +282,7 @@ class StructureMapper(ABC):
             image_title = content_lst_node['content'].get('title', '')
             image_caption = content_lst_node['content'].get('caption', [])
             image_url = content_lst_node['content'].get('url', '')
-            image_footnote = content_lst_node['content'].get('caption', [])
-
+            image_footnote = content_lst_node['content'].get('footnote', [])
             if not image_path and not image_data:
                 image_path = sha256_hash(image_url)
 
