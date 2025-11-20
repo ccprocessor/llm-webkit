@@ -157,7 +157,7 @@ class TestDataJsonInit(unittest.TestCase):
                     'alt': 'Curtindo o apartamento com piscina no centro de SP. ',
                     'title': 'Curtindo o apartamento com piscina no centro de SP. ',
                     'caption': [],
-                    'footnote': []
+                    'footnote': ['test image footnote']
                 }
             }]]
         }
