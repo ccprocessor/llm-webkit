@@ -69,8 +69,7 @@
       },
       {
         "type": "code",
-        "raw_content": "<div class=\"tFormatCodeBlock supportThreadCodeBlock\" style=\"border: 1px  solid  #7f9db9;overflow-y: auto;\" id=\"highlighter_46368\">\n    <div style=\"background-color: #ffffff;\"><span style=\"margin-left: 0px !important;\"><code style=\"color: #000000;\">Private Sub sitemenu_ItemCreated(ByVal sender As Object, ByVal e As Telerik.Web.UI.RadMenuEventArgs) Handles sitemenu.ItemCreated</code></span>\n    </div>\n    <div style=\"background-color: #f8f8f8;\"><span><code>        </code><span style=\"margin-left: 24px !important;\"><code style=\"color: #000000;\">Dim item As RadMenuItem = sitemenu.FindItemByUrl(Request.Url.PathAndQuery)</code></span></span>\n    </div>\n    <div style=\"background-color: #ffffff;\"><span><code>        </code><span style=\"margin-left: 24px !important;\"><code style=\"color: #000000;\">If item IsNot Nothing Then</code></span></span>\n    </div>\n    <div style=\"background-color: #f8f8f8;\"><span><code>            </code><span style=\"margin-left: 36px !important;\"><code style=\"color: #000000;\">item.CssClass = \"focused\"</code></span></span>\n    </div>\n    <div style=\"background-color: #ffffff;\"><span><code>        </code><span style=\"margin-left: 24px !important;\"><code style=\"color: #000000;\">End If</code></span></span>\n    </div>\n    <div style=\"background-color: #f8f8f8;\"><span style=\"margin-left: 0px !important;\"> </span></div>\n    <div style=\"background-color: #ffffff;\"><span><code>    </code><span style=\"margin-left: 12px !important;\"><code style=\"color: #000000;\">End Sub</code></span></span>\n    </div>\n</div>\n\n",
-        "inline": false,
+        "bbox": [],
         "content": {
           "code_content": "Private Sub sitemenu_ItemCreated(ByVal sender As Object, ByVal e As Telerik.Web.UI.RadMenuEventArgs) Handles sitemenu.ItemCreated\n        Dim item As RadMenuItem = sitemenu.FindItemByUrl(Request.Url.PathAndQuery)\n        If item IsNot Nothing Then\n            item.CssClass = \"focused\"\n        End If\n\n    End Sub",
           "by": "tag_code"
@@ -164,7 +163,7 @@
       },
       {
         "type": "equation-interline",
-        "raw_content": "<p>$$a^2 + b^2 = c^2$$</p>",
+        "bbox": [],
         "content": {
           "math_content": "a^2 + b^2 = c^2",
           "math_type": "latex",

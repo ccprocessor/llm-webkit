@@ -53,23 +53,26 @@ class MathRecognizer(BaseHTMLElementRecognizer):
 
     @override
     def to_content_list_node(self, base_url: str, parsed_content: HtmlElement, raw_html_segment: str) -> dict:
-        """将content转换成content_list_node.
-        每种类型的html元素都有自己的content-list格式：参考 docs/specification/output_format/content_list_spec.md
-        例如代码的返回格式：
+        """将content转换成content_list_node. 每种类型的html元素都有自己的content-list格式：参考
+        docs/specification/output_format/content_list_spec.md.
+
+        返回格式示例：
         ```json
             {
-                "type": "equation-inline", # 数学公式类型，一共equation-inline和equation-interline两种
-                "raw_content": "<ccmath type="latex" by="mathjax">$u_{x_0}^{in}(x)$</ccmath>",
+                "type": "equation-interline",
+                "bbox": [x1, y1, x2, y2],
                 "content": {
-                    "math_content": "u_{x_0}^{in}(x)",
+                    "math_content": "a^2 + b^2 = c^2",
                     "math_type": "latex",
                     "by": "mathjax"
                 }
             }
-            ```
+        ```
 
-            Args:
-                content: str: 要转换的content
+        Args:
+            base_url: 基础URL
+            parsed_content: 解析后的HtmlElement对象
+            raw_html_segment: 原始HTML片段
 
         Returns:
             dict: content_list_node
@@ -86,7 +89,7 @@ class MathRecognizer(BaseHTMLElementRecognizer):
             math_content = self.cm.wrap_math_md(math_content)
             return {
                 'type': DocElementType.EQUATION_INTERLINE,
-                'raw_content': raw_html_segment,
+                'bbox': [],
                 'content': {
                     'math_content': math_content,
                     'math_type': inter_ele[0].get('type'),  # 数学语言类型
@@ -97,7 +100,7 @@ class MathRecognizer(BaseHTMLElementRecognizer):
             math_content = in_els[0].text
             return {
                 'type': DocElementType.EQUATION_INLINE,
-                'raw_content': raw_html_segment,
+                'bbox': [],
                 'content': {
                     'math_content': math_content,
                     'math_type': in_els[0].get('type'),  # 数学语言类型

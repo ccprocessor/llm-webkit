@@ -145,7 +145,6 @@ class TestExtractorChain(unittest.TestCase):
         self.assertEqual(html_content['type'], DocElementType.CODE)
         self.assertEqual(len(html_content['content']['code_content']), 251)
         self.assertEqual(html_content['content']['by'], 'tag_pre_code')
-        self.assertEqual(html_content['inline'], False)
 
         # 有序列表
         html_content = html_content_list[10]
