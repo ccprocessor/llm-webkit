@@ -182,13 +182,14 @@
       },
       {
         "type": "image",
-        "raw_content": "<img src=\"http://example.com/image.png\" alt=\"image\">",
+        "bbox": [],
         "content": {
           "url": "http://example.com/image.png",
           "data": null,
           "alt": "image",
           "title": null,
-          "caption": ""
+          "caption": [],
+          "footnote": []
         }
       },
       {
@@ -203,7 +204,7 @@
       },
       {
         "type": "list",
-        "raw_content": "<ul><li>UL1 <span>UL1.1</span></li><li>UL2</li></ul>",
+        "bbox": [],
         "content": {
           "items": [
             {
@@ -219,7 +220,7 @@
       },
       {
         "type": "list",
-        "raw_content": "<dl><dt>HTML</dt><dd>瓒呮枃鏈爣璁拌瑷€</dd><dt>CSS</dt><dd>灞傚彔鏍峰紡琛�</dd></dl>",
+        "bbox": [],
         "content": {
           "items": [
             {

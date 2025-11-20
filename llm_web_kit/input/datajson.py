@@ -280,8 +280,9 @@ class StructureMapper(ABC):
             image_data = content_lst_node['content'].get('data', '')
             image_alt = content_lst_node['content'].get('alt', '')
             image_title = content_lst_node['content'].get('title', '')
-            image_caption = content_lst_node['content'].get('caption', '')
+            image_caption = content_lst_node['content'].get('caption', [])
             image_url = content_lst_node['content'].get('url', '')
+            image_footnote = content_lst_node['content'].get('caption', [])
 
             if not image_path and not image_data:
                 image_path = sha256_hash(image_url)
@@ -299,10 +300,15 @@ class StructureMapper(ABC):
             else:
                 image_title = ''
 
-            if image_caption:
-                image_caption = image_caption.strip()
+            if len(image_caption) > 0:
+                image_caption = image_caption[0].strip()
             else:
                 image_caption = ''
+
+            if len(image_footnote) > 0:
+                image_footnote = image_footnote[0].strip()
+            else:
+                image_footnote = ''
 
             image_des = image_title if image_title else ''
             # 优先使用data, 其次path.其中data是base64编码的图片，path是图片的url
@@ -321,6 +327,9 @@ class StructureMapper(ABC):
                 image_with_caption = f'{image}\n\n{image_caption}'
             else:
                 image_with_caption = image
+
+            if image_footnote:
+                image_with_caption = f'{image_with_caption}\n\n{image_footnote}'
 
             return image_with_caption
         elif node_type == DocElementType.AUDIO:
