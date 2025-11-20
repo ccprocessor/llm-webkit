@@ -152,22 +152,6 @@ class StructureMapper(ABC):
         md = self.__to_md(exclude_nodes, exclude_inline_types, use_raw_image_url)
         return md
 
-    def to_main_html(self) -> str:
-        """拼接和每个content_list_node对应的html内容，返回一个完整的html文档.
-
-        Args:
-            content_lst_node (dict): content_list里定义的每种元素块
-        Returns:
-            str: html格式
-        """
-        content_lst = self._get_data()
-        html = ''
-        for page in content_lst:
-            for content_lst_node in page:
-                raw_html = content_lst_node['raw_content']
-                html += raw_html
-        return html
-
     def to_json(self, pretty=False) -> str:
         content_lst = self._get_data()
         if pretty:

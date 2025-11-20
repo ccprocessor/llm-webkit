@@ -287,7 +287,7 @@ TEST_CONTENT_LIST_NODE = [
         ),
         'expected': {
             'type': 'equation-interline',
-            'raw_content': '<span class="math-container">$$h \\approx {{GM} \\over c^2} \\times {1 \\over r} \\times {v^2 \\over c^2}$$</span>',
+            'bbox': [],
             'content': {
                 'math_content': 'h \\approx {{GM} \\over c^2} \\times {1 \\over r} \\times {v^2 \\over c^2}',
                 'math_type': 'latex',
