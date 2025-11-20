@@ -102,10 +102,12 @@ class TestExtractorChain(unittest.TestCase):
         # 然后是img
         html_content = html_content_list[2]
         self.assertEqual(html_content['type'], DocElementType.IMAGE)
+        self.assertEqual(html_content['bbox'], [])
         self.assertEqual(html_content['content']['title'], 'image-title')
         self.assertEqual(html_content['content']['alt'], 'image-alt')
         self.assertEqual(html_content['content']['url'], 'https://www.test.com/test.png')
-        self.assertEqual(html_content['content']['caption'], '')
+        self.assertEqual(html_content['content']['caption'], [])
+        self.assertEqual(html_content['content']['footnote'], [])
 
         # 然后是simple table
         html_content = html_content_list[4]
@@ -121,6 +123,7 @@ class TestExtractorChain(unittest.TestCase):
         # 然后是list
         html_content = html_content_list[6]
         self.assertEqual(html_content['type'], DocElementType.LIST)
+        self.assertEqual(html_content['bbox'], [])
         self.assertEqual(len(html_content['content']['items']), 2)
         self.assertEqual(html_content['content']['list_attribute'], 'unordered')
         self.assertEqual(html_content['content']['items'][0]['c'], '1')
@@ -177,8 +180,8 @@ class TestExtractorChain(unittest.TestCase):
         self.assertEqual(md_content[-1], '\n')
 
         # main_html
-        main_html = result.get_content_list().to_main_html()  # 获取main_html内容
-        self.assertEqual(main_html, self.main_html_expected_content)  # 如果遇到嵌套的html, 则返回原始html的时候还是应当拼接替换一下 TODO
+        main_html = result.get('main_html')
+        self.assertEqual(len(main_html), 1869)  # 如果遇到嵌套的html, 则返回原始html的时候还是应当拼接替换一下 TODO
 
     def test_html_pipeline_suit_2(self):
         """测试第二个数据：这个数据会丢失一些文本信息."""

@@ -82,9 +82,9 @@ TEST_CC_CASE = [
         'url': 'xxx',
         'parsed_content': """<ccimage by="img" html='&lt;img src="http://15.demooo.pl/wp-content/themes/starter/dist/images/logos/janser-logo.svg" alt="Janser Logo"&gt;' format="url" alt="Janser Logo">http://15.demooo.pl/wp-content/themes/starter/dist/images/logos/janser-logo.svg</ccimage>""",
         'html': '...',
-        'expected': {'type': 'image', 'raw_content': '...', 'content': {
+        'expected': {'type': 'image', 'bbox': [], 'content': {
             'url': 'http://15.demooo.pl/wp-content/themes/starter/dist/images/logos/janser-logo.svg', 'data': None,
-            'alt': 'Janser Logo', 'title': None, 'caption': None}},
+            'alt': 'Janser Logo', 'title': None, 'caption': [], 'footnote': []}},
         'alt': 'Janser Logo',
         'img_url': 'http://15.demooo.pl/wp-content/themes/starter/dist/images/logos/janser-logo.svg'
     },
@@ -94,9 +94,9 @@ TEST_CC_CASE = [
 
                                     ' format="url" alt="Układanie wykładzin">http://15.demooo.pl/wp-content/uploads/2022/08/ukladanie-wykladzin.svg</ccimage>""",
         'html': '...',
-        'expected': {'type': 'image', 'raw_content': '...',
+        'expected': {'type': 'image', 'bbox': [],
                      'content': {'url': 'http://15.demooo.pl/wp-content/uploads/2022/08/ukladanie-wykladzin.svg',
-                                 'data': None, 'alt': 'Układanie wykładzin', 'title': None, 'caption': None}},
+                                 'data': None, 'alt': 'Układanie wykładzin', 'title': None, 'caption': [], 'footnote': []}},
         'alt': 'Układanie wykładzin',
         'img_url': 'http://15.demooo.pl/wp-content/uploads/2022/08/ukladanie-wykladzin.svg'
     },
