@@ -60,7 +60,7 @@ class MathRecognizer(BaseHTMLElementRecognizer):
         ```json
             {
                 "type": "equation-interline",
-                "bbox": [x1, y1, x2, y2],
+                "bbox": [],
                 "content": {
                     "math_content": "a^2 + b^2 = c^2",
                     "math_type": "latex",
