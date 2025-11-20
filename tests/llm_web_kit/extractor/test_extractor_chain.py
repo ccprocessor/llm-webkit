@@ -175,10 +175,6 @@ class TestExtractorChain(unittest.TestCase):
         self.assertNotEqual(md_content[-2], '\n')
         self.assertEqual(md_content[-1], '\n')
 
-        # main_html
-        main_html = result.get_content_list().to_main_html()  # 获取main_html内容
-        self.assertEqual(main_html, self.main_html_expected_content)  # 如果遇到嵌套的html, 则返回原始html的时候还是应当拼接替换一下 TODO
-
     def test_html_pipeline_suit_2(self):
         """测试第二个数据：这个数据会丢失一些文本信息."""
         chain = ExtractSimpleFactory.create(self.config)

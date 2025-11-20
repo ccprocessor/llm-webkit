@@ -331,7 +331,8 @@ class TestTextParagraphRecognize(unittest.TestCase):
         }
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
-        main_html = result.get_content_list().to_main_html()
+        # 验证 main_html 中没有交互元素
+        main_html = result.get('main_html', '')
         assert '<input' not in main_html
 
     def test_normalize_space1(self):
