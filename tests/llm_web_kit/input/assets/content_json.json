@@ -83,8 +83,8 @@
         "type": "simple_table",
         "content": {
           "html": "<table><tr><td>1.1</td><td>2.1</td></tr><tr><td>3.1</td><td>4.1</td></tr></table>",
-          "is_complex": false,
-          "table_nest_level": "1"
+          "caption": [],
+          "footnote": []
         }
       },
       {
@@ -100,8 +100,9 @@
         "type": "complex_table",
         "content": {
           "html": "<table><tr><td rowspan=\"2\">1</td><td>2</td><td>3</td></tr><tr><td colspan=\"2\">4</td></tr><tr><td>5</td><td>6</td><td>7</td></tr></table>",
-          "is_complex": true,
-          "table_nest_level": "1"
+          "table_nest_level": "1",
+          "caption": [],
+          "footnote": []
         }
       },
       {

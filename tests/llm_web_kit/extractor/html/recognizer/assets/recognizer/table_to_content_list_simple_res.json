@@ -1,1 +1,1 @@
-{"type": "simple_table", "content": {"html": "<table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>", "is_complex": false}}
+{"type": "simple_table", "content": {"html": "<table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>", "caption": [], "footnote": []}}

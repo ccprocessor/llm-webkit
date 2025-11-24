@@ -100,17 +100,25 @@ class TableRecognizer(BaseHTMLElementRecognizer):
         # 使用传入的 raw_html_segment 或将 parsed_content 转换为字符串
         if table_type:
             cc_table_type = DocElementType.COMPLEX_TABLE
+            d = {
+                'type': cc_table_type,
+                'content': {
+                    'html': html_content,
+                    'table_nest_level': table_nest_level,
+                    "caption": [],
+                    "footnote": []
+                }
+            }
         else:
             cc_table_type = DocElementType.SIMPLE_TABLE
-        d = {
-            'type': cc_table_type,
-            # 'raw_content': raw_html_segment,
-            'content': {
-                'html': html_content,
-                'is_complex': table_type,
-                'table_nest_level': table_nest_level
+            d = {
+                'type': cc_table_type,
+                'content': {
+                    'html': html_content,
+                    "caption": [],
+                    "footnote": []
+                }
             }
-        }
         return d
 
     def __is_contain_cc_html(self, cc_html: HtmlElement) -> bool:

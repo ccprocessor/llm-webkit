@@ -2,7 +2,8 @@
     "type": "complex_table",
     "content": {
         "html": "<table><caption>ফেব্রুয়ারি ২০২৪</caption><thead><tr><th>সোম</th><th>মঙ্গল</th><th>বুধ</th><th>বৃহ</th><th>শুক্র</th><th>শনি</th><th>রবি</th></tr></thead><tfoot><tr><td colspan=\\\"3\\\">« জানুয়ারি</td><td></td><td colspan=\\\"3\\\"></td></tr></tfoot><tbody><tr><td colspan=\\\"3\\\"></td><td>১</td><td>২</td><td>৩</td><td>৪</td></tr><tr><td>৫</td><td>৬</td><td>৭</td><td>৮</td><td>৯</td><td>১০</td><td>১১</td></tr><tr><td>১২</td><td>১৩</td><td>১৪</td><td>১৫</td><td>১৬</td><td>১৭</td><td>১৮</td></tr><tr><td>১৯</td><td>২০</td><td>২১</td><td>২২</td><td>২৩</td><td>২৪</td><td>২৫</td></tr><tr><td>২৬</td><td>২৭</td><td>২৮</td><td>২৯</td><td colspan=\\\"3\\\"></td></tr></tbody></table>",
-        "is_complex": true,
-        "table_nest_level": null
+        "table_nest_level": null,
+        "caption": [],
+        "footnote": []
     }
 }
