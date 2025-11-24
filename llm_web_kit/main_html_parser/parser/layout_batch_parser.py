@@ -302,7 +302,7 @@ class LayoutBatchParser(BaseMainHtmlParser):
                 else:
                     parent.text = (parent.text or '') + (element.tail or '')
                 parent.remove(element)
-        self.add_newline_after_tags(body, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'div', 'p', 'li'])
+        # self.add_newline_after_tags(body, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'div', 'p', 'li'])
         output = []
         main_content = re.split(r'\n{1,}', self.get_text_with_newlines(body))
         for line in main_content:
