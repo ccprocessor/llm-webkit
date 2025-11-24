@@ -93,34 +93,24 @@ class TableRecognizer(BaseHTMLElementRecognizer):
 
     @override
     def to_content_list_node(self, base_url: str, parsed_content: HtmlElement, raw_html_segment: str) -> dict:
-        table_type, table_nest_level, table_caption, table_body = self.__get_attribute(parsed_content)
+        table_type, table_nest_level, table_body = self.__get_attribute(parsed_content)
 
         # 确保 table_body 不为 None 且是字符串类型
         html_content = table_body if table_body is not None else ''
         # 使用传入的 raw_html_segment 或将 parsed_content 转换为字符串
         if table_type:
             cc_table_type = DocElementType.COMPLEX_TABLE
-            d = {
-                'type': cc_table_type,
-                "bbox": [],
-                'content': {
-                    'html': html_content,
-                    'table_nest_level': table_nest_level,
-                    "caption": table_caption if table_caption else [],
-                    "footnote": []
-                }
-            }
         else:
             cc_table_type = DocElementType.SIMPLE_TABLE
-            d = {
-                'type': cc_table_type,
-                "bbox": [],
-                'content': {
-                    'html': html_content,
-                    "caption": table_caption if table_caption else [],
-                    "footnote": []
-                }
+        d = {
+            'type': cc_table_type,
+            'raw_content': raw_html_segment,
+            'content': {
+                'html': html_content,
+                'is_complex': table_type,
+                'table_nest_level': table_nest_level
             }
+        }
         return d
 
     def __is_contain_cc_html(self, cc_html: HtmlElement) -> bool:
@@ -360,21 +350,13 @@ class TableRecognizer(BaseHTMLElementRecognizer):
             temp_tail = root.tail
             root.tail = None
             table_raw_html = self._element_to_html(root)
-            table_caption = [str(item.text_content()) for item in root.xpath('.//caption') if item is not None]
             table_type = self.__get_table_type(root)
             table_nest_level = self.__is_table_nested(root)
             tail_text = None
             table_body = self.__get_table_body(table_type, table_nest_level, root)
-
-            if table_caption:
-                cc_element = self._build_cc_element(
-                    CCTag.CC_TABLE, table_body, tail_text, table_type=table_type, table_nest_level=table_nest_level,
-                    table_caption=str(table_caption), html=table_raw_html)
-            else:
-                cc_element = self._build_cc_element(
-                    CCTag.CC_TABLE, table_body, tail_text, table_type=table_type, table_nest_level=table_nest_level,
-                    html=table_raw_html)
-
+            cc_element = self._build_cc_element(
+                CCTag.CC_TABLE, table_body, tail_text, table_type=table_type, table_nest_level=table_nest_level,
+                html=table_raw_html)
             cc_element.tail = temp_tail
             self._replace_element(root, cc_element)
             return
@@ -387,11 +369,9 @@ class TableRecognizer(BaseHTMLElementRecognizer):
         if ele is not None and ele.tag == CCTag.CC_TABLE:
             table_type = ele.attrib.get('table_type')
             table_nest_level = ele.attrib.get('table_nest_level')
-            _caption = ele.attrib.get('table_caption', [])
-            table_caption = list(_caption) if _caption else []
             table_flag = self.__get_content_list_table_type(table_type)
             table_body = ele.text
-            return table_flag, table_nest_level, table_caption, table_body
+            return table_flag, table_nest_level, table_body
         else:
             raise HtmlTableRecognizerException(f'{ele}中没有cctable标签')
 

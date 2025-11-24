@@ -24,7 +24,7 @@ def modify_tree(cm: CCMATH, math_render: str, o_html: str, node: HtmlElement, pa
         if len(annotation_tags) > 0:
             annotation_tag = annotation_tags[0]
             text = annotation_tag.text
-            if parent is not None:
+            if parent:
                 style_value = parent.get('style')
                 if style_value:
                     normalized_style_value = style_value.lower().strip().replace(' ', '').replace(';', '')

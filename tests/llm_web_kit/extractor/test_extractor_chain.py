@@ -112,11 +112,13 @@ class TestExtractorChain(unittest.TestCase):
         # 然后是simple table
         html_content = html_content_list[4]
         self.assertEqual(html_content['type'], DocElementType.SIMPLE_TABLE)
+        self.assertEqual(html_content['content']['is_complex'], False)
         assert html_content['content']['html'].startswith('<table')
 
         # 然后是complex table
         html_content = html_content_list[5]
         self.assertEqual(html_content['type'], DocElementType.COMPLEX_TABLE)
+        self.assertEqual(html_content['content']['is_complex'], True)
 
         # 然后是list
         html_content = html_content_list[6]
@@ -539,8 +541,8 @@ DEF
         test_data = self.data_json[31]
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
-        result_flag = result.get_content_list()._get_data()[0][0]['type']
-        assert result_flag == "complex_table"
+        result_flag = result.get_content_list()._get_data()[0][0]['content']['is_complex']
+        assert result_flag is True
 
     def test_table_colspan_error(self):
         """测试table的colspan标签为字符串引起的异常错误."""
@@ -549,8 +551,8 @@ DEF
         test_data = self.data_json[32]
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
-        result_flag = result.get_content_list()._get_data()[0][15]['type']
-        assert result_flag == "simple_table"
+        result_flag = result.get_content_list()._get_data()[0][15]['content']['is_complex']
+        assert result_flag is False
 
     def test_table_colspan_percent_err(self):
         """测试table的colspan标签为百分数引起的异常错误."""
@@ -559,8 +561,8 @@ DEF
         test_data = self.data_json[33]
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
-        result_flag = result.get_content_list()._get_data()[0][0]['type']
-        assert result_flag == "complex_table"
+        result_flag = result.get_content_list()._get_data()[0][0]['content']['is_complex']
+        assert result_flag is True
 
     def test_table_colspan_str_error(self):
         """测试table的colspan标签为字符串引起的异常错误."""
@@ -569,8 +571,8 @@ DEF
         test_data = self.data_json[34]
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
-        result_flag = result.get_content_list()._get_data()[0][28]['type']
-        assert result_flag == "simple_table"
+        result_flag = result.get_content_list()._get_data()[0][28]['content']['is_complex']
+        assert result_flag is False
 
     def test_table_invalid_percent(self):
         """测试table的colspan标签为百分数引起的异常错误."""
@@ -579,8 +581,8 @@ DEF
         test_data = self.data_json[35]
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
-        result_flag = result.get_content_list()._get_data()[0][0]['type']
-        assert result_flag == "simple_table"
+        result_flag = result.get_content_list()._get_data()[0][0]['content']['is_complex']
+        assert result_flag is False
 
     def test_maigc_html(self):
         """测试magic-html."""

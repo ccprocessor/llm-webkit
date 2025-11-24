@@ -1,9 +1,1 @@
-{
-  "type": "simple_table",
-  "bbox": [],
-  "content": {
-    "html": "<table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>",
-    "caption":[],
-    "footnote":[]
-  }
-}
+{"type": "simple_table", "raw_content": "<cctable table_type=\\\"simple\\\" html=\\\"&lt;table&gt;&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;\\\">&lt;table&gt;&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;<tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></cctable>", "content": {"html": "<table><tr><td>1</td><td>2</td></tr><tr><td>3</td><td>4</td></tr></table>", "is_complex": false}}
