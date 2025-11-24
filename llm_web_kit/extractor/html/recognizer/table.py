@@ -104,7 +104,7 @@ class TableRecognizer(BaseHTMLElementRecognizer):
             cc_table_type = DocElementType.SIMPLE_TABLE
         d = {
             'type': cc_table_type,
-            'raw_content': raw_html_segment,
+            # 'raw_content': raw_html_segment,
             'content': {
                 'html': html_content,
                 'is_complex': table_type,
