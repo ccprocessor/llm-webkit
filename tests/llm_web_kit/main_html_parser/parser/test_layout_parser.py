@@ -474,3 +474,31 @@ class TestLayoutParser(unittest.TestCase):
         parts = parser.parse(pre_data)
         main_html = parts[PreDataJsonKey.MAIN_HTML]
         assert 'conda install bioconductor-annotationdbi' in main_html
+
+    def test_fix_newlines(self):
+        # 构造测试html
+        typical_raw_tag_html = base_dir.joinpath(
+            'assets/input_layout_batch_parser/test_fix_all_newlines.html').read_text(
+            encoding='utf-8')
+        html_source = base_dir.joinpath(
+            'assets/input_layout_batch_parser/test_fix_all_newlines.html').read_text(
+            encoding='utf-8')
+        # 简化网页
+        # 模型结果格式改写
+        llm_path = 'assets/input_layout_batch_parser/test_code_newline.json'
+        llm_response = json.loads(base_dir.joinpath(llm_path).read_text(encoding='utf-8'))
+        pre_data = {'typical_raw_tag_html': typical_raw_tag_html, 'typical_raw_html': typical_raw_tag_html,
+                    'llm_response': llm_response, 'html_source': html_source}
+        pre_data = PreDataJson(pre_data)
+        # 映射
+        parser = MapItemToHtmlTagsParser({})
+        pre_data = parser.parse(pre_data)
+
+        # 推广
+        pre_data[PreDataJsonKey.DYNAMIC_ID_ENABLE] = True
+        pre_data[PreDataJsonKey.DYNAMIC_CLASSID_ENABLE] = True
+        pre_data[PreDataJsonKey.MORE_NOISE_ENABLE] = True
+        parser = LayoutBatchParser({})
+        parts = parser.parse(pre_data)
+        main_html = parts[PreDataJsonKey.MAIN_HTML_BODY]
+        assert len(main_html) == 39746
