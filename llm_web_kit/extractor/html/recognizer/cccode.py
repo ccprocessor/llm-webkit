@@ -88,29 +88,29 @@ class CodeRecognizer(BaseHTMLElementRecognizer):
 
     @override
     def to_content_list_node(self, base_url:str, parsed_content: HtmlElement, raw_html_segment:str) -> dict:
-        """
-        把代码元素转换为content list node.
+        """把代码元素转换为content list node. 注意：此方法只处理块级代码(CC_CODE)，行内代码(CC_CODE_INLIN
+        E)由TextParagraphRecognizer处理.
+
         Args:
             base_url:
             parsed_content: HtmlElement对象
             raw_html_segment:
 
         Returns:
-
         """
         d = {
             'type': 'code',
-            # "bbox": [],
-            'raw_content': raw_html_segment,
-            'inline': parsed_content.get('inline', 'false') == 'true',
+            'bbox': [],
             'content': {
                 'code_content': parsed_content.text,
             },
         }
 
+        # 可选字段：language
         if lang := parsed_content.get('language', None):
             d['content']['language'] = lang
 
+        # 可选字段：by（代码高亮工具）
         if by := parsed_content.get('by', None):
             d['content']['by'] = by
 

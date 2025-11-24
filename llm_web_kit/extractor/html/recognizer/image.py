@@ -53,15 +53,18 @@ class ImageRecognizer(BaseHTMLElementRecognizer):
             raise HtmlImageRecognizerException(f'No ccimage element found in content: {parsed_content}')
 
     def __ccimg_to_content_list(self, raw_html_segment: str, html_obj: HtmlElement) -> dict:
+        caption = html_obj.get('caption')
+        footnote = html_obj.get('footnote')
         result = {
             'type': DocElementType.IMAGE,
-            'raw_content': raw_html_segment,
+            'bbox': [],
             'content': {
                 'url': html_obj.text if html_obj.get('format') == 'url' else None,
                 'data': html_obj.text if html_obj.get('format') == 'base64' else None,
                 'alt': html_obj.get('alt'),
                 'title': html_obj.get('title'),
-                'caption': html_obj.get('caption')
+                'caption': [caption] if caption else [],
+                'footnote': [footnote] if footnote else []
             }
         }
         return result

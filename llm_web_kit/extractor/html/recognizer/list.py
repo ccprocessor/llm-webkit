@@ -44,7 +44,7 @@ class ListRecognizer(BaseHTMLElementRecognizer):
 
         ele_node = {
             'type': DocElementType.LIST,
-            'raw_content': raw_html_segment,
+            'bbox': [],
             'content': {
                 'items': content_list,
                 'list_attribute': list_attribute,

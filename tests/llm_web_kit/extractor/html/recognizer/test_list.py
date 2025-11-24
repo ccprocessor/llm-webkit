@@ -19,28 +19,28 @@ class TestSimpleListRecognize(unittest.TestCase):
         self.__list_with_ul_text_content = None
         self.__list_with_sub_no_prefix_content = None
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/simple_list.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/simple_list.html', 'r', encoding='utf-8') as file:
             self.__simple_list_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/complex_list.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/complex_list.html', 'r', encoding='utf-8') as file:
             self.__complex_list_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/test-list-item.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/test-list-item.html', 'r', encoding='utf-8') as file:
             self.__with_empty_list_item_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_sub_sup.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_sub_sup.html', 'r', encoding='utf-8') as file:
             self.__list_with_sub_sup_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_br_and_cctags.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_br_and_cctags.html', 'r', encoding='utf-8') as file:
             self.__list_with_br_and_cctags_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_with_sub_sup_tail.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_with_sub_sup_tail.html', 'r', encoding='utf-8') as file:
             self.__list_with_sub_sup_tail_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_with_ul_text.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_with_ul_text.html', 'r', encoding='utf-8') as file:
             self.__list_with_ul_text_content = file.read()
 
-        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_with_sub_no_prefix.html', 'r') as file:
+        with open(f'{os.path.dirname(os.path.abspath(__file__))}/assets/recognizer/list_with_sub_no_prefix.html', 'r', encoding='utf-8') as file:
             self.__list_with_sub_no_prefix_content = file.read()
 
     def test_simple_list(self):
@@ -158,7 +158,6 @@ class TestSimpleListRecognize(unittest.TestCase):
         # 验证返回的内容结构正确
         assert 'type' in content_node, '返回的content_node缺少type字段'
         assert 'content' in content_node, '返回的content_node缺少content字段'
-        assert 'raw_content' in content_node, '返回的content_node缺少raw_content字段'
 
         # 验证content字段包含必要的内容
         assert 'items' in content_node['content'], 'content字段缺少items'
