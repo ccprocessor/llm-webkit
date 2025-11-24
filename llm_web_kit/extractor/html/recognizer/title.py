@@ -36,7 +36,7 @@ class TitleRecognizer(BaseHTMLElementRecognizer):
             return None
         cctitle_content_node = {
             'type': DocElementType.TITLE,
-            'raw_content': raw_html_segment,
+            # 'raw_content': raw_html_segment,
             'content': {
                 'title_content': text,
                 'level': level
