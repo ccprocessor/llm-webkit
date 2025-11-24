@@ -93,7 +93,7 @@ class TextParagraphRecognizer(BaseHTMLElementRecognizer):
         el = parsed_content
         node = {
             'type': DocElementType.PARAGRAPH,
-            'raw_content': raw_html_segment,
+            # 'raw_content': raw_html_segment,
             'content': json.loads(el.text),
         }
         return node

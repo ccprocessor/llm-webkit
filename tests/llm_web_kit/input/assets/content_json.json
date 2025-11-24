@@ -13,7 +13,6 @@
     [
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================title====================================</div></div>",
         "content": [
           {
             "c": "==========================title====================================",
@@ -23,7 +22,6 @@
       },
       {
         "type": "title",
-        "raw_content": "<h1>Title Test</h1>",
         "content": {
           "title_content": "Title Test",
           "level": "1"
@@ -31,7 +29,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================code inline====================================</div></div>",
         "content": [
           {
             "c": "==========================code inline====================================",
@@ -41,7 +38,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div><li><strong>Dead simple</strong>\n        Include prism.css and prism.js, use proper HTML5 code tags (<cccode-inline by=\"tag_code\" html=\"&lt;code&gt;code.language-xxxx&lt;/code&gt;), done!\n    \" inline=\"true\">code.language-xxxx</cccode-inline>), done!\n    </li></div></div>",
         "content": [
           {
             "c": "Dead simple Include prism.css and prism.js, use proper HTML5 code tags (",
@@ -59,7 +55,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================code====================================</div></div>",
         "content": [
           {
             "c": "==========================code====================================",
@@ -77,7 +72,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================simple table====================================</div></div>",
         "content": [
           {
             "c": "==========================simple table====================================",
@@ -87,7 +81,6 @@
       },
       {
         "type": "simple_table",
-        "raw_content": "<table><tr><td>1.1</td><td>2.1</td></tr><tr><td>3.1</td><td>4.1</td></tr></table>",
         "content": {
           "html": "<table><tr><td>1.1</td><td>2.1</td></tr><tr><td>3.1</td><td>4.1</td></tr></table>",
           "is_complex": false,
@@ -96,7 +89,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================complex table====================================</div></div>",
         "content": [
           {
             "c": "==========================complex table====================================",
@@ -106,7 +98,6 @@
       },
       {
         "type": "complex_table",
-        "raw_content": "<table><tr><td rowspan=\"2\">1</td><td>2</td><td>3</td></tr><tr><td colspan=\"2\">4</td></tr><tr><td>5</td><td>6</td><td>7</td></tr></table>",
         "content": {
           "html": "<table><tr><td rowspan=\"2\">1</td><td>2</td><td>3</td></tr><tr><td colspan=\"2\">4</td></tr><tr><td>5</td><td>6</td><td>7</td></tr></table>",
           "is_complex": true,
@@ -115,7 +106,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================equation inline====================================</div></div>",
         "content": [
           {
             "c": "==========================equation inline====================================",
@@ -125,7 +115,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><p>测试行内公式<ccmath-inline type=\"latex\" by=\"mathjax_mock\" html=\"$x=4$\">x=4</ccmath-inline>。</p></div>",
         "content": [
           {
             "c": "测试行内公式",
@@ -143,7 +132,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================equation interline====================================</div></div>",
         "content": [
           {
             "c": "==========================equation interline====================================",
@@ -153,7 +141,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><p>公式如下：</p></div>",
         "content": [
           {
             "c": "公式如下：",
@@ -172,7 +159,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================img====================================</div></div>",
         "content": [
           {
             "c": "==========================img====================================",
@@ -194,7 +180,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================list====================================</div></div>",
         "content": [
           {
             "c": "==========================list====================================",
@@ -242,7 +227,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================paragraph====================================</div></div>",
         "content": [
           {
             "c": "==========================paragraph====================================",
@@ -252,7 +236,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><p>test paragraph</p></div>",
         "content": [
           {
             "c": "test paragraph",
@@ -262,7 +245,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================audio====================================</div></div>",
         "content": [
           {
             "c": "==========================audio====================================",
@@ -272,7 +254,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><div>==========================video====================================</div></div>",
         "content": [
           {
             "c": "==========================video====================================",
@@ -282,7 +263,6 @@
       },
       {
         "type": "paragraph",
-        "raw_content": "<div><video controls=\"\" width=\"250\">Download the<a href=\"/shared-assets/videos/flower.webm\">WEBM</a>\n    or\n    <a href=\"/shared-assets/videos/flower.mp4\">MP4</a>\n    video.\n</video></div>",
         "content": [
           {
             "c": "Download the WEBM or MP4 video.",
