@@ -51,7 +51,7 @@ class StructureMapper(ABC):
 
     def __init__(self):
         self.__txt_para_splitter = '\n'
-        self.__md_para_splitter = '\n\n'
+        self.__md_para_splitter = ''
         self.__text_end = '\n'
         self.__list_item_start = '-'  # md里的列表项前缀
         self.__list_para_prefix = '  '  # 两个空格，md里的列表项非第一个段落的前缀：如果多个段落的情况，第二个以及之后的段落前缀
@@ -117,6 +117,8 @@ class StructureMapper(ABC):
                 if content_lst_node['type'] not in exclude_nodes:
                     txt_content = self.__content_lst_node_2_md(content_lst_node, exclude_inline_types,
                                                                use_raw_image_url)
+                    if len(md_blocks) > 0 and not txt_content.startswith("\n") and not md_blocks[-1].endswith("\n"):  # 若段落间没有换行，则添加换行
+                        md_blocks.append("\n\n")
                     if txt_content and len(txt_content) > 0:
                         md_blocks.append(txt_content)
 

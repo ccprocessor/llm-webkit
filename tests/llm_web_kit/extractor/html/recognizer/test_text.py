@@ -31,7 +31,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
                                                                           '中共中央政治局召开会议审议《成-2020年10月16日新闻联播',
                                                                           'zh') == '知识乱象\n中共中央政治局召开会议审议《成-2020年10月16日新闻联播'
         result = self.text_recognize.recognize('http://www.baidu.com', [(html_to_element(html_content), html_to_element(html_content))], html_content)
-        assert '知识乱象\\n\\n 中共中央政治局' in element_to_html_unescaped(result[587][0])
+        assert '知识乱象\\n 中共中央政治局' in element_to_html_unescaped(result[587][0])
 
     def test_text_2(self):
         """
@@ -53,7 +53,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert 'Selecting Rivet Sets:\n\n To develop maximum power' in content_md
+        assert 'Selecting Rivet Sets:\n To develop maximum power' in content_md
 
     def test_text_3(self):
         """
@@ -75,7 +75,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert "1. The problem statement, all variables and given/known data\n\n A woman of height 1.7 meters stands directly in front of a convex mirror 2.0 meters away. The mirror has a radius of curvature, R=-50cm. Find the location and size of a woman's image using the ray diagram and mirror/lens equation.\n\n----------\n\n 2. The speed of light in a material is 2.50x10^8 meters per second. What is the index of refraction of the material?\n\n 2. Relevant equations\n\n 3. The attempt at a solution\n\n 1. di=22.22\n\n 2. Dont know" in content_md
+        assert "1. The problem statement, all variables and given/known data\n A woman of height 1.7 meters stands directly in front of a convex mirror 2.0 meters away. The mirror has a radius of curvature, R=-50cm. Find the location and size of a woman's image using the ray diagram and mirror/lens equation.\n\n----------\n\n 2. The speed of light in a material is 2.50x10^8 meters per second. What is the index of refraction of the material?\n\n 2. Relevant equations\n\n 3. The attempt at a solution\n 1. di=22.22\n\n 2. Dont know" in content_md
 
     def test_text_4(self):
         """
@@ -97,7 +97,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert '1. The problem statement, all variables and given/known data\n\n 2. Relevant equations\n\n See attachment\n\n 3. The attempt at a solution\n\n I solved the problem' in content_md
+        assert '1. The problem statement, all variables and given/known data\n 2. Relevant equations\n\n See attachment\n\n 3. The attempt at a solution\n I solved the problem' in content_md
 
     def test_text_5(self):
         """
@@ -119,7 +119,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert 'Please Note:\n\n 1. Charge the battery on receiving even if it will not be used soon.\n\n 2. Charge the battery EVERY MONTH if not in use for long periods to prevent over-discharging of the battery. This can cause irreparable damage to it.' in content_md
+        assert 'Please Note:\n 1. Charge the battery on receiving even if it will not be used soon.\n 2. Charge the battery EVERY MONTH if not in use for long periods to prevent over-discharging of the battery. This can cause irreparable damage to it.' in content_md
 
     def test_text_6(self):
         """
@@ -165,7 +165,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         with open(Path(__file__).parent.parent.parent / 'assets/extractor_chain_input/good_data/html/text8.html', 'r') as file:
             html_content = file.read()
         result = self.text_recognize.recognize('http://www.baidu.com', [(html_to_element(html_content), html_to_element(html_content))], html_content)
-        assert "40xy\' -ln(x^8) = 0\\n\\n\\n\\n Initial Condition: y(1)=31\\n\\n\\n\\n Work:" in element_to_html_unescaped(result[69][0]) and BaseHTMLElementRecognizer.is_cc_html(result[69][0])
+        assert "40xy\' -ln(x^8) = 0\\n\\n Initial Condition: y(1)=31\\n\\n Work:" in element_to_html_unescaped(result[69][0]) and BaseHTMLElementRecognizer.is_cc_html(result[69][0])
 
     def test_text_9(self):
         """
@@ -177,7 +177,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         with open(Path(__file__).parent.parent.parent / 'assets/extractor_chain_input/good_data/html/text9.html', 'r') as file:
             html_content = file.read()
         result = self.text_recognize.recognize('http://www.baidu.com', [(html_to_element(html_content), html_to_element(html_content))], html_content)
-        assert '1) Consider the formula f(x)=lim(n--&gt;infinity)((x^n)/(1+x^n)).\\n\\n Let D={x:f(x) is an element of R}. Calculate f(x) for all x elements of D and determine where f: D--&gt;R is continuous.\\n\\n\\n\\n 2) Let f: D--&gt;R and suppose that f(x) greater than equal 0 for all x elements of D. Define sqrt(f)--&gt;R by (sqrt(f))(x) = sqrt(f(x)). If f is continuous at c elements of D, prove that sqrt(f) is continuous at c.' in element_to_html_unescaped(result[63][0]) and BaseHTMLElementRecognizer.is_cc_html(result[63][0])
+        assert '1) Consider the formula f(x)=lim(n--&gt;infinity)((x^n)/(1+x^n)).\\n Let D={x:f(x) is an element of R}. Calculate f(x) for all x elements of D and determine where f: D--&gt;R is continuous.\\n\\n 2) Let f: D--&gt;R and suppose that f(x) greater than equal 0 for all x elements of D. Define sqrt(f)--&gt;R by (sqrt(f))(x) = sqrt(f(x)). If f is continuous at c elements of D, prove that sqrt(f) is continuous at c.' in element_to_html_unescaped(result[63][0]) and BaseHTMLElementRecognizer.is_cc_html(result[63][0])
 
     def test_text_10(self):
         """
@@ -199,7 +199,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert 'So far I have 2 sets of questions (but I\'m onlin in the 2nd chapter now\n\n![:smile:](d80757e36ca9835f7237339959a1fa1d929bb5c5297acb457475459d6da12278 "Smile    :smile:")\n\n)\n\n 1)\n\n In the book' in content_md
+        assert 'So far I have 2 sets of questions (but I\'m onlin in the 2nd chapter now\n\n![:smile:](d80757e36ca9835f7237339959a1fa1d929bb5c5297acb457475459d6da12278 "Smile    :smile:")\n\n)\n\n 1)\n In the book' in content_md
 
     def test_text_11(self):
         """
@@ -381,7 +381,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert 'December 10th 2009, 06:42 PM\n\n fearless901\n\n Can someone please tell me my code wont work, error after error\n\n\n\n im need to write code to get height and time of the fluid in a reservoir, help guys. is my functions wrong? \n\n \n\n \n\n\n\n Code' in content_md
+        assert 'December 10th 2009, 06:42 PM\nfearless901\nCan someone please tell me my code wont work, error after error\nim need to write code to get height and time of the fluid in a reservoir, help guys. is my functions wrong?\nCode' in content_md
 
     def test_normalize_space3(self):
         """
@@ -405,7 +405,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert '### Volume 6, Issue 3, 01 February 1965\n\n- INFRARED LASER ACTION AND LIFETIMES IN ARGON II\n\n F. A. Horrigan , S. H. Koozekanani and R. A. Paananen\n\n Scitation Author Page\n\n PubMed\n\n Google Scholar\n\n Source' in content_md
+        assert '### Volume 6, Issue 3, 01 February 1965\n\n- INFRARED LASER ACTION AND LIFETIMES IN ARGON II\nF. A. Horrigan , S. H. Koozekanani and R. A. Paananen\nScitation Author Page\nPubMed\nGoogle Scholar\nSource' in content_md
 
     def test_normalize_space4(self):
         """
@@ -429,7 +429,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert '1. DrDu\n\n Lieber Hendrik, \n\n kannst Du hierzu was beitragen? \n\n Ich finde keinen rechten Grund' in content_md
+        assert '1. DrDu\nLieber Hendrik,\nkannst Du hierzu was beitragen?\nIch finde keinen rechten Grund'
         assert 'Show Ignored Content' not in content_md  # 这个是隐藏标签，不应该被识别出来
 
     def test_Lack_content1(self):
@@ -478,7 +478,7 @@ class TestTextParagraphRecognize(unittest.TestCase):
         input_data = DataJson(test_data)
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
-        assert 'The interquartile range formula is the first quartile subtracted from the third quartile:\n\n $IQR = Q_{3}-Q_{1}' in content_md
+        assert 'The interquartile range formula is the first quartile subtracted from the third quartile:\n $IQR = Q_{3}-Q_{1}' in content_md
 
     def test_para_has_none(self):
         """
@@ -527,6 +527,32 @@ class TestTextParagraphRecognize(unittest.TestCase):
         result = chain.extract(input_data)
         content_md = result.get_content_list().to_mm_md()
         assert "Choosing a selection results in a full page refresh." not in content_md
+
+    def test_clean_invisible_elements1(self):
+        """
+        清理隐藏标签
+        Returns:
+
+        """
+        chain = ExtractSimpleFactory.create(load_pipe_tpl('noclip_html_test'))
+        self.assertIsNotNone(chain)
+        test_data = {
+            'track_id': 'text_md',
+            'dataset_name': 'text_md',
+            'url': 'https://br.wikipedia.org/wiki/Faustina_an_Hena%C3%B1',
+            'data_source_category': 'HTML',
+            'path': '000.html',
+            'main_path': '000.html',
+            'file_bytes': 1000,
+            'meta_info': {'input_datetime': '2020-01-01 00:00:00'},
+            'language': 'en'
+        }
+        input_data = DataJson(test_data)
+        result = chain.extract(input_data)
+        content_md = result.get_content_list().to_mm_md()
+        # assert "Choosing a selection results in a full page refresh." not in content_md
+        with open("/home/PJLAB/houlinfeng/projects/custom_plugins/000.md", 'w', encoding='utf-8') as f:
+            f.write(content_md)
 
     def test_empty_string_fix(self):
         """

@@ -271,7 +271,7 @@ class TextParagraphRecognizer(BaseHTMLElementRecognizer):
 
         for item in para_text:
             if item['c'] is not None:
-                item['c'] = restore_sub_sup_from_text_regex(item['c']).replace('$br$', PARAGRAPH_SEPARATOR)
+                item['c'] = restore_sub_sup_from_text_regex(item['c']).replace('$br$', '\n')
             else:
                 item['c'] = ""
 

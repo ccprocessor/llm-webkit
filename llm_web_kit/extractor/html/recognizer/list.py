@@ -1,4 +1,5 @@
 import json
+import re
 from typing import Any, List, Tuple
 
 from lxml import html as lxml_html
@@ -196,6 +197,8 @@ class ListRecognizer(BaseHTMLElementRecognizer):
                     if len(paragraph) > 0 and paragraph[-1]['t'] == ParagraphTextType.TEXT:
                         paragraph[-1]['c'] += _new_tail
                 else:
+                    if len(paragraph) > 0 and el.tag not in inline_tags:
+                        _new_tail = '$br$' + _new_tail
                     paragraph.append({'c': _new_tail, 't': ParagraphTextType.TEXT})
 
             if paragraph:
@@ -212,7 +215,8 @@ class ListRecognizer(BaseHTMLElementRecognizer):
             text_paragraph.append(new_paragraph)
 
         for n, item in enumerate(text_paragraph):
-            tem_json = json.dumps(item).replace('$br$', '\\n\\n')
+            tem_json = json.dumps(item, ensure_ascii=False)
+            tem_json = re.sub(r'(\s*\$br\$\s*)+', r'\\n', tem_json)
             text_paragraph[n] = json.loads(tem_json)
 
         return text_paragraph
