@@ -43,6 +43,8 @@ class DatabaseManager:
                 pool_pre_ping=True,
                 pool_size=settings.db_pool_size,
                 max_overflow=settings.db_max_overflow,
+                pool_recycle=3600,
+                pool_use_lifo=True,
             )
 
             # 创建异步会话工厂
