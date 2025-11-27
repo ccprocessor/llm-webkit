@@ -887,6 +887,6 @@ def simplify_html(html_str) -> etree.Element:
     simplified_html = process_paragraphs(paragraphs, original_uid_map)
 
     remove_all_uids(original_dom)
-    original_html = etree.tostring(original_dom, pretty_print=True, method='html', encoding='unicode')
+    original_html = etree.tostring(original_dom, pretty_print=False, method='html', encoding='unicode')
 
     return simplified_html, original_html
