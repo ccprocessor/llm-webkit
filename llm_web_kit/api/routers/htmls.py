@@ -138,7 +138,7 @@ async def upload_html_file(
             except Exception as commit_error:
                 logger.error(f'提交初始日志时出错: {commit_error}')
 
-        result = await html_service.parse_html(html_content=html_content,  url="www.baidu.com")
+        result = await html_service.parse_html(html_content=html_content, url="www.baidu.com")
 
         # 更新日志为成功
         await RequestLogService.update_log_success(
