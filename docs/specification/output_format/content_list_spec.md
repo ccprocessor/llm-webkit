@@ -161,7 +161,9 @@
     "alt": "Screen Shot 2012-06-19 at 6.25.45 PM",
     "title": null,
     "caption": ["What it ACTUALLY looks like"],
-    "footnote":[]
+    "footnote":[],
+    "caption_bbox":[[x1,y1, x2, y2]], // html没有
+    "footnote_bbox":[[x1, y1, x2, y2]] // html没有
   }
 }
 ```
@@ -241,7 +243,9 @@
     "html": "<table><tbody><tr><th rowspan=\"2\">指标</th><th colspan=\"2\">数据</th></tr><tr><td>2023</td><td>2024</td></tr><tr><td>营收</td><td>10</td><td>15</td></tr></tbody></table>",
     "table_nest_level": "1",
     "caption":[],
-    "footnote":[]
+    "footnote":[],
+    "caption_bbox":[[]], // html无
+    "footnote_bbox":[[]] // html无
   }
 }
 ```
@@ -264,7 +268,9 @@
   "content": {
     "html":"",
     "caption":[],
-    "footnote":[]
+    "footnote":[],
+    "caption_bbox":[[]], // html无
+    "footnote_bbox":[[]] // html无
   }
 }
 ```
@@ -378,14 +384,17 @@
   "bbox": [x1, y1, x2, y2],
   "content": [
     {
+      "bbox":[x1, y1, x2, y2], // html没有
       "c": "Who Is In Your Top 3 Mentalists Of All Time? x = 1",
       "t": "text"
     },
     {
+      "bbox":[x1, y1, x2, y2], // html没有
       "c": "E=mc^2",
       "t": "equation-inline"
     },
     {
+      "bbox":[x1, y1, x2, y2], // html没有
       "c": "• MAGICIANSANDMAGIC.COM",
       "t": "text"
     }
