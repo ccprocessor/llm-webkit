@@ -642,6 +642,18 @@ class TestSimpleIntegration(unittest.TestCase):
         self.assertIn('B. How does the TV advertising campaign initiated by IKEA overcome the entry barrier of high advertising expenditures?', md)
         self.assertIn('Johansson, J. K. (2006). Global marketing (4th edition ed.). New York: McGraw Hill Irwin.', md)
 
+    def test_extract_main_html_with_double_dollar(self):
+        """测试html文本中只包含$$的情况不会被误识别为数学公式."""
+        html_content = open(os.path.join(self.base_path, 'assets', 'double_dollar.html'), 'r').read()
+        md = extract_content_from_main_html(self.url, html_content)
+        self.assertIn(r'he present value Hamiltonian is $$\mathcal{H}=e^{-\triangle} U\left( c\right) +\lambda _{1}^{}\left[ f(k)-c\right] +\lambda _{2}\left[ \rho +h(k)\right] $$ and so $$\frac {d\mathcal{H}}{dt} = -\dot \...', md)
+
+    def test_extract_main_html_with_triple_dollar(self):
+        """测试html文本中只包含$$$的情况不会被误识别为数学公式."""
+        html_content = open(os.path.join(self.base_path, 'assets', 'triple_dollar.html'), 'r').read()
+        md = extract_content_from_main_html(self.url, html_content)
+        self.assertIn(r'[$$$] Construction Estimator - Multi-Family - Blueprint Staffing, LLC December 07, 2023 at 05:59:10', md)
+
     def test_extract_main_html_with_mathjax(self):
         """测试包含MathJax数学公式的HTML内容提取."""
 

@@ -2,6 +2,7 @@ import re
 from typing import Any, Dict, List
 
 from pylatexenc import latexwalker
+from pylatexenc.latexwalker import LatexWalkerParseError
 
 from llm_web_kit.extractor.html.recognizer.cc_math.common import CCMATH
 from llm_web_kit.extractor.html.recognizer.cc_math.render.render import (
@@ -381,8 +382,14 @@ class MathJaxRender(BaseMathRender):
         else:
             matches = []
             tem_match_display = []
-            walker = latexwalker.LatexWalker(text)
-            nodelist, pos, len_ = walker.get_latex_nodes(pos=0)
+            # 使用 tolerant_parsing=False 来严格解析，避免不完整的公式被错误识别
+            walker = latexwalker.LatexWalker(text, tolerant_parsing=False)
+            try:
+                nodelist, pos, len_ = walker.get_latex_nodes(pos=0)
+            except LatexWalkerParseError:
+                # 解析失败说明文本中包含不完整的数学公式标记（如 $$$），
+                # 此时跳过 latexwalker 解析，只使用正则匹配
+                nodelist = []
             for node in nodelist:
                 # 标准的数学环境
                 if node.isNodeType(latexwalker.LatexMathNode):
