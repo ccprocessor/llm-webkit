@@ -51,8 +51,8 @@ repos:
           - mdformat_frontmatter
           - linkify-it-py
         exclude: '^tests/.*/assets/|llm_web_kit/model/assets/.*'
-  - repo: https://github.com/myint/docformatter
-    rev: v1.3.1
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.5
     hooks:
       - id: docformatter
         args: [ "--in-place", "--wrap-descriptions", "119" ]
