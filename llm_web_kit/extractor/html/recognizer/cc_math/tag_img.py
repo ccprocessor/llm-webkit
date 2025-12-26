@@ -1,3 +1,4 @@
+import re
 from urllib.parse import unquote
 
 from lxml.html import HtmlElement
@@ -45,7 +46,10 @@ def modify_tree(cm: CCMATH, math_render: str, o_html: str, node: HtmlElement, pa
                 return True
 
             # 4. 检查图片尺寸
-            if node.get('width') and int(node.get('width', '0')) > 100:
+            width_str = node.get('width', '')
+            # 提取数字部分，处理带单位的情况（如 "100px"）
+            width_match = re.match(r'^(\d+)', width_str)
+            if width_match and int(width_match.group(1)) > 100:
                 return True
 
             # 5. 检查是否后面紧跟<br>标签
