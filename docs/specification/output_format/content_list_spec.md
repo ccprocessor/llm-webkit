@@ -66,7 +66,7 @@
 | page_aside_text    | ❌   | ✅   |      |文档边注                                                                             |
 | page_footnote      | ❌   | ✅   |      |文档论文脚注                                                                         |
 
-其中`text_content`表示可打印文本：
+其中可打印文本均使用`text_content`结构表示（例如拼音，普通纯文本，行内公式，行内代码，markdown文本)：
 
 ```json
 {
@@ -82,6 +82,8 @@
 - `md`： markdown格式的文本
 - `phonetic`: 汉语拼音
 
+**如有必要刻意继续扩展**
+
 ## 字段定义
 
 ### 代码段(code)
@@ -96,7 +98,7 @@
   "type": "code",
   "bbox":[x1, y1, x2, y2]
   "content": {
-    "code_caption":[`text_content_1`, `text_content_2`],
+    "code_caption":[text_content_1, text_content_2],
     "code_content": "def add(a, b):\\n return a + b",
     "language":"python",
     "by": "tag_code"
@@ -122,7 +124,7 @@
   "bbox": [x1, y1, x2, y2],
   "content":{
     "algorithm_content":"循环:\n当x<0时停止",
-    "algorithm_caption":[`text_content_1`, `text_content_2`]
+    "algorithm_caption":[text_content_1, text_content_2]
   }
 }
 
@@ -165,10 +167,10 @@
   "content": {
     "image_type":"general | chat",
     "image_source": {"url":"http://xxx.com/1.png", "path":"/mnt/data/1.png", "base64":""},
-    "image_caption": [`text_content_1`, `text_content_2`],
-    "image_footnote":[`text_content_1`, `text_content_2`],
-    "alt": `text_content`,
-    "title": `text_content`
+    "image_caption": [text_content_1, text_content_2],
+    "image_footnote":[text_content_1, text_content_2],
+    "alt": text_content,
+    "title": text_content
   }
 }
 ```
@@ -186,7 +188,7 @@
 > 对于网页来说image_source里`url`和`base64`二者必须有一个，数据使用优先级是`base64`>`url`。
 
 
-### 复杂表格[含跨行、列合并，嵌套]
+### 表格[含跨行、列合并，嵌套表格]
 
 ```json
 {
@@ -194,11 +196,11 @@
   "bbox": [x1, y1, x2, y2],
   "content": {
     "html": "<table><tbody><tr><th rowspan=\"2\">指标</th><th colspan=\"2\">数据</th></tr><tr><td>2023</td><td>2024</td></tr><tr><td>营收</td><td>10</td><td>15</td></tr></tbody></table>",
-    "table_nest_level": "1",
-    "caption":[],
-    "footnote":[],
-    "caption_bbox":[[]], // html无
-    "footnote_bbox":[[]] // html无
+    "table_type":"comlex_table | simple_table" # 复杂表 | 简单表
+    "table_nest_level": 1,
+    "table_caption":[text_content_1, text_content_2],
+    "table_footnote":[text_content_1, text_content_2],
+    "image_source":{"url":"", "path":"", "base64":""}
   }
 }
 ```
@@ -208,33 +210,12 @@
 | type                     | string | 可选值为simple_table、complex_table           | 是       |
 | bbox                     | 四元组 | 元素位置坐标                                  | 可选     |
 | content.html             | string | 表格的html内容                                | 是       |
+| content.table_type       | string | 取值为`complex_table`或者`simple_table`       | 是       |
 | content.table_nest_level | int    | table嵌套层级(单个table为1,两层为2，以此类推) | 可选     |
-| content.caption          | string | 表格的caption内容                             | 否       |
-| content.footnote         | string | 表格的footnote内容                            | 否       |
+| content.table_caption    | list   | 表格的caption内容                             | 否       |
+| content.table_footnote   | list   | 表格的footnote内容                            | 否       |
 
-### 简单表格 \[可用markdown表达的表格\]
-
-```json
-{
-  "type":"simple_table",
-  "bbox": [x1, y1, x2, y2],
-  "content": {
-    "html":"",
-    "caption":[],
-    "footnote":[],
-    "caption_bbox":[[]], // html无
-    "footnote_bbox":[[]] // html无
-  }
-}
-```
-
-| 字段             | 类型   | 描述                                | 是否必须 |
-| ---------------- | ------ | ----------------------------------- | -------- |
-| type             | string | 可选值为simple_table、complex_table | 是       |
-| bbox             | 四元组 | 元素位置坐标                        | 可选     |
-| content.html     | string | 表格的html内容                      | 是       |
-| content.caption  | list   | 表格的caption内容                   | 否       |
-| content.footnote | list   | 表格的footnote内容                  | 否       |
+> **complex_table** 是有单元格合并的表，不能转为markdown；**simple_table** 是没有单元格合并的表格，可以用markdown表达
 
 ### 列表段\[支持嵌套\]
 
@@ -243,39 +224,28 @@
   "type": "list",
   "bbox": [x1, y1, x2, y2],
   "content": {
-    "items": [
+    "list_type": "text_list | reference_list" ,// 普通list 或者是论文里的引文列表(html里没有)
+    "attribute": "definition",
+    "list_nest_level": 1,
+    "list_items":[
       {
-        "c": "外层列表项"
+        "item_type":"text", // 此处是text的例子，如果是list类型，那么item_content就是一个新的list
+        "item_content": text_content
       },
       {
-        "child_list": {
-          "list_attribute": "ordered",
-          "items": [
-            {
-              "c": "行内公式: $E=mc^2$"
-            },
-            {
-              "c": "行内代码: `x = 1`"
+        "item_type": "list", // 嵌套的列表,此时item_content是一个新的list
+        "item_content": {
+            "type": "list",
+            "bbox":[a,b,c,d],
+            "content": {
+                "list_type": "text_list",
+                "attribute":"definition",
+                "list_nest_level": 2,
+                "list_items":[]
             }
-          ]
-        }
-      },
-      {
-        "c": "外层另一个列表项"
-      },
-      {
-        "child_list": {
-          "list_attribute": "unordered",
-          "items": [
-            {
-              "c": "第二层菜单项"
-            }
-          ]
-        }
+          }//end item_content
       }
-    ],
-    "list_attribute": "definition",
-    "list_nest_level": "2"
+    ]
   }
 }
 ```
@@ -285,7 +255,7 @@
 | type                    | string | 值固定为list                                              | 是       |
 | bbox                    | 四元组 | 元素位置坐标                                              | 可选     |
 | content.items           | array  | 列表项，每个元素是N个段落，段落里的元素是文本、公式或代码 | 是       |
-| content.list_attribute  | string | unordered/ordered/definition                              | 可选     |
+| content.attribute  | string | unordered/ordered/definition                              | 可选     |
 | content.list_nest_level | int    | list的嵌套层级(单层list list_nest_level为1)               | 可选     |
 
 <b>items字段说明</b>
@@ -294,20 +264,6 @@
 - 每个元素是一个对象，包含字段：c和t。 c是内容content首字母，t是类型type首字母。
 - t的取值同`paragraph`
 
-### ref_list 参考文献列表
-
-> ⚠️仅在文档论文中有
-
-```json
-{
-  "type":"ref_list",
-  "bbox": [x1, y1, x2, y2],
-  "content":{
-    // same as list
-  }
-}
-
-```
 
 ### 标题段
 
@@ -316,7 +272,7 @@
   "type": "title",
   "bbox": [x1, y1, x2, y2],
   "content": {
-    "title_content": "大模型好，大模型棒1",
+    "title_content": text_content,
     "level": "1"
   }
 }
@@ -326,7 +282,7 @@
 | --------------------- | ------ | -------------------- | -------- |
 | type                  | string | 值固定为title        | 是       |
 | bbox                  | 四元组 | 元素位置坐标         | 可选     |
-| content.title_content | string | 标题内容             | 是       |
+| content.title_content | text_content | 标题内容             | 是       |
 | content.level         | int    | 标题级别，1-N, 1最大 | 可选     |
 
 ### 段落
@@ -336,21 +292,11 @@
   "type": "paragraph",
   "bbox": [x1, y1, x2, y2],
   "content": [
-    {
-      "bbox":[x1, y1, x2, y2], // html没有
-      "c": "Who Is In Your Top 3 Mentalists Of All Time? x = 1",
-      "t": "text"
-    },
-    {
-      "bbox":[x1, y1, x2, y2], // html没有
-      "c": "E=mc^2",
-      "t": "equation-inline"
-    },
-    {
-      "bbox":[x1, y1, x2, y2], // html没有
-      "c": "• MAGICIANSANDMAGIC.COM",
-      "t": "text"
-    }
+     text_content_1, # 代表一句纯文本
+     text_content_2, # 行内公式
+     text_content_3, # 纯文本
+     text_content_4, # 行内代码
+     text_content_5, # 拼音
   ]
 }
 ```
@@ -359,7 +305,7 @@
 | ------- | ------ | --------------------------------------------------------------- | -------- |
 | type    | string | 值固定为paragraph                                               | 是       |
 | bbox    | 四元组 | 元素位置坐标                                                    | 可选     |
-| content | array  | 段落内容，每个元素是一个对象，包含字段c和t。 c是内容，t是类型。 | 是       |
+| content | list[text_content]  | 段落内容，每个元素是一个对象，包含字段c和t。 c是内容，t是类型。 | 是       |
 
 <b>content字段说明</b>
 
@@ -380,7 +326,7 @@
   "type": "page_header",
   "bbox":[x0, y0, x1, y1],
   "content": {
-    "page_header_content": "大模型学习资料",
+    "page_header_content": text_content,
   }
 }
 ```
@@ -394,7 +340,7 @@
   "type": "page_footer",
   "bbox":[x0, y0, x1, y1],
   "content": {
-    "page_footer_content": "~~内部资料请勿外传~~",
+    "page_footer_content": text_content,
   }
 }
 ```
@@ -408,7 +354,7 @@
   "type": "page_number",
   "bbox":[x0, y0, x1, y1],
   "content": {
-    "page_number_content": "--12--",
+    "page_number_content": text_content,
   }
 }
 ```
@@ -422,7 +368,7 @@
   "type": "page_aside_text",
   "bbox":[x0, y0, x1, y1],
   "content": {
-    "page_aside_text_content": "LLM大模型学习资料",
+    "page_aside_text_content": text_content,
   }
 }
 ```
@@ -436,7 +382,7 @@
   "type": "page_footnote",
   "bbox":[x0, y0, x1, y1],
   "content": {
-    "page_footnote_content": "大模型的代表公司有OpenAI、Claude等",
+    "page_footnote_content": text_content,
   }
 }
 ```
