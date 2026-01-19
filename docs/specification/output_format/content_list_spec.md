@@ -2,6 +2,7 @@
 ## https://aicarrier.feishu.cn/wiki/RWZywKLW8iSvn6kZWGBc70JSn6f
 ## 目的
 
+
 定义content_list的目的是为了统一流水线输出的数据格式，无论是网页、电子书、富文本pdf,word，ppt等，都可以转化到这个格式。
 使得不同的下游任务可以：
 
@@ -273,7 +274,7 @@
   "bbox": [x1, y1, x2, y2],
   "content": {
     "title_content": text_content,
-    "level": "1"
+    "level": 1
   }
 }
 ```
