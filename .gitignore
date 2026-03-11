@@ -32,8 +32,8 @@ tmp
 .vscode/
 ocr_demo
 .coveragerc
- 
- 
+
+
 
 # sphinx docs
 _build/
