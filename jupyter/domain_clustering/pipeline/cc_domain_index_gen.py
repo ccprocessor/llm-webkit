@@ -180,7 +180,7 @@ def process_domain_records_file(_iter):
                     domain_hash_id = detail_data.get("domain_hash_id")
                     # 如果domain_hash_id为空，则计算
                     if domain_hash_id is None:
-                        domain_hash_id = xxhash.xxh64_intdigest(domain) % HASH_COUNT
+                        domain_hash_id = xxhash.xxh64_intdigest(domain.encode('utf-8')) % HASH_COUNT
                     offset, length = map(int, row.loc.split("bytes=")[-1].split(",")) if "bytes=" in row.loc else (0, len(row.value))
 
                     # 如果是新域名，先输出前一个域名的记录
