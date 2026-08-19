@@ -7,7 +7,7 @@ import xxhash
 def compute_domain_hash(domain, hash_count) -> int:
     if domain is None:
         return None
-    return xxhash.xxh64_intdigest(domain) % hash_count
+    return xxhash.xxh64_intdigest(domain.encode('utf-8')) % hash_count
 
 
 # 定义提取domain的UDF
