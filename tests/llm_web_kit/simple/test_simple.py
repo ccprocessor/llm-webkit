@@ -718,6 +718,56 @@ class TestSimpleIntegration(unittest.TestCase):
         self.assertIn('| $n$ | $785$ | $885$ | $1667$ |', md)
         self.assertIn('| $\\chi(n)$ | $e\\left(\\frac{3}{4}\\right)$ | $e\\left(\\frac{2}{3}\\right)$ | $-1$ |', md)
 
+    def test_extract_main_html_with_math_img_width_various_formats(self):
+        """测试img标签width属性各种格式的情况，验证不会抛出异常."""
+        main_html = r'''
+        <p>Some text with inline formula:</p>
+        <!-- 带单位 px -->
+        <img src="https://latex.codecogs.com/gif.latex?E=mc^2" alt="$E=mc^2$" width="50px" height="20px" />
+        <p>And a larger image:</p>
+        <!-- 带单位 px，超过100 -->
+        <img src="https://example.com/large.png" alt="large image" width="200px" />
+        <p>Image with percent width:</p>
+        <!-- 百分比 -->
+        <img src="https://latex.codecogs.com/gif.latex?a^2+b^2=c^2" alt="$a^2+b^2=c^2$" width="80%" />
+        <p>Image with float width:</p>
+        <!-- 浮点数 -->
+        <img src="https://latex.codecogs.com/gif.latex?x^n" alt="$x^n$" width="512.123" />
+        <p>Image with float width and unit:</p>
+        <!-- 浮点数带单位 -->
+        <img src="https://latex.codecogs.com/gif.latex?y^m" alt="$y^m$" width="123.456px" />
+        <p>Image with auto width:</p>
+        <!-- auto 值 -->
+        <img src="https://latex.codecogs.com/gif.latex?z^k" alt="$z^k$" width="auto" />
+        <p>Image with em unit:</p>
+        <!-- em 单位 -->
+        <img src="https://latex.codecogs.com/gif.latex?w^j" alt="$w^j$" width="10em" />
+        <p>Image with empty width:</p>
+        <!-- 空值 -->
+        <img src="https://latex.codecogs.com/gif.latex?v^i" alt="$v^i$" width="" />
+        '''
+
+        # 这个测试主要验证不会因为各种 width 值而抛出异常
+        md = extract_content_from_main_html(self.url, main_html)
+        print(md)
+
+        # 验证文本内容存在
+        self.assertIn('Some text with inline formula', md)
+        self.assertIn('Image with float width', md)
+        self.assertIn('Image with auto width', md)
+
+        # 验证 img 中的数学公式被正确提取
+        # width <= 100 的是行内公式 $...$
+        self.assertIn('$E=mc^2$', md)  # width="50px", 50 <= 100
+        self.assertIn('$a^2+b^2=c^2$', md)  # width="80%", 80 <= 100
+        self.assertIn('$z^k$', md)  # width="auto", 无数字
+        self.assertIn('$w^j$', md)  # width="10em", 10 <= 100
+        self.assertIn('$v^i$', md)  # width="", 空值
+
+        # width > 100 的是行间公式 $$...$$ (多行格式)
+        self.assertIn('$$\nx^n\n$$', md)  # width="512.123", 512 > 100
+        self.assertIn('$$\ny^m\n$$', md)  # width="123.456px", 123 > 100
+
     def test_extract_magic_html_with_mathjax(self):
         """测试包含MathJax数学公式的HTML内容提取."""
         raw_html = r'''
@@ -752,3 +802,4 @@ class TestSimpleIntegration(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
+    TestSimple().test_extract_main_html_with_math_img_width_various_formats()
