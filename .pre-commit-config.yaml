@@ -51,11 +51,11 @@ repos:
           - mdformat_frontmatter
           - linkify-it-py
         exclude: '^tests/.*/assets/|llm_web_kit/model/assets/.*'
-  - repo: https://github.com/myint/docformatter
-    rev: v1.3.1
-    hooks:
-      - id: docformatter
-        args: [ "--in-place", "--wrap-descriptions", "119" ]
+  # - repo: https://github.com/myint/docformatter
+  #   rev: v1.3.1
+  #   hooks:
+  #     - id: docformatter
+  #       args: [ "--in-place", "--wrap-descriptions", "119" ]
   - repo: local
     hooks:
       - id: clear-jupyter-notebook-output
